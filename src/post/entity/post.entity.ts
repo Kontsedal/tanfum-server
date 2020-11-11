@@ -1,14 +1,39 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { PostContentBlockEntity } from './postContentBlock.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { PostContentBlock } from './postContentBlock';
+import { Tag } from './tag';
 
 @Entity()
-export class PostEntity {
+export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   title: string;
 
-  @OneToMany(() => PostContentBlockEntity, (content) => content.post)
-  contentBlocks: PostContentBlockEntity[];
+  @JoinTable()
+  @OneToMany(() => PostContentBlock, (content) => content.post, {
+    cascade: true,
+  })
+  contentBlocks: PostContentBlock[];
+
+  @JoinTable()
+  @ManyToMany(() => Tag, (tag) => tag.posts, {
+    cascade: true,
+  })
+  tags: Tag[];
+
+  @CreateDateColumn()
+  createdAt: string;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: number;
 }

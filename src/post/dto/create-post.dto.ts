@@ -1,4 +1,4 @@
-import { PostContentBlockType } from '../entity/postContentBlock.entity';
+import { PostContentBlockType } from '../entity/postContentBlock';
 import {
   ArrayMaxSize,
   ArrayMinSize,
@@ -6,7 +6,6 @@ import {
   IsDefined,
   IsEnum,
   IsString,
-  Length,
   MaxLength,
   MinLength,
   ValidateNested,
@@ -27,7 +26,8 @@ export class CreatePostDto {
   contentBlocks: Array<PostContent>;
 
   @IsString({ each: true })
-  @Length(2, 20)
+  @ArrayMinSize(2)
+  @ArrayMaxSize(20)
   tags: string[];
 }
 
