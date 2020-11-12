@@ -114,5 +114,26 @@ describe('AppController (e2e)', () => {
           .expect(400);
       });
     });
+    it('should create post', () => {
+      return request(app.getHttpServer())
+        .post('/api/post')
+        .send({ ...validPost })
+        .then(({ body }) => {
+          expect(body).toMatchObject({
+            id: expect.any(Number),
+            ...validPost,
+            contentBlocks: validPost.contentBlocks.map((block) => ({
+              id: expect.any(Number),
+              ...block,
+            })),
+            tags: validPost.tags.map((tag) => ({
+              id: expect.any(Number),
+              name: tag,
+            })),
+            createdAt: expect.any(String),
+            updatedAt: expect.any(String),
+          });
+        });
+    });
   });
 });
