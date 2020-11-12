@@ -40,8 +40,8 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  afterEach(() => {
-    app.close();
+  afterEach(async () => {
+    await app.close();
   });
 
   describe('/api/post (POST)', () => {

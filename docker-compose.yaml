@@ -23,6 +23,16 @@ services:
       POSTGRES_DB: tanfum-local
     volumes:
       - pgvol:/var/lib/postgresql/data
+  postgres-test:
+    restart: always
+    image: postgres
+    container_name: "postgres_tanfum_test"
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: tanfum-test
 volumes:
   pgvol:
   pgadmin:
