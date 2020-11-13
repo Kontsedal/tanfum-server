@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Post } from './entity/post.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { Tag } from './entity/tag';
 import { PostContentBlock } from './entity/postContentBlock';
+import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostService {
@@ -32,6 +33,28 @@ export class PostService {
       contentBlocks,
     });
     return this.postRepository.save(post);
+  }
+
+  async updatePost(postId: number, updatePostDto: UpdatePostDto) {
+    const post = await this.postRepository.findOne(postId);
+    if (!post) {
+      throw new NotFoundException("Post doesn't exist");
+    }
+    const { contentBlocks, tags, ...rest } = updatePostDto;
+    const updatedFields: Partial<Post> = { ...rest };
+    if (contentBlocks) {
+      updatedFields.contentBlocks = await Promise.all(
+        contentBlocks.map((block) =>
+          this.postContentBlockRepository.create(block),
+        ),
+      );
+    }
+    if (tags) {
+      updatedFields.tags = await Promise.all<Tag>(
+        tags.map(this.preloadTagByName.bind(this)),
+      );
+    }
+    return this.postRepository.update(postId, updatedFields);
   }
 
   getPost(postId) {
