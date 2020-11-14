@@ -33,6 +33,22 @@ services:
       POSTGRES_USER: test
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: tanfum-test
+  minio:
+    image: minio/minio
+    volumes:
+      - v1:/export
+    expose:
+      - "9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /export
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
 volumes:
+  v1:
   pgvol:
   pgadmin:
