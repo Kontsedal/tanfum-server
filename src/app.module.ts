@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostModule } from './post/post.module';
+import { AssetsModule } from './assets/assets.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -16,6 +17,10 @@ import * as Joi from '@hapi/joi';
         POSTGRES_USER: Joi.string().required(),
         POSTGRES_PASSWORD: Joi.string().required(),
         POSTGRES_DB: Joi.string().required(),
+        S3_KEY: Joi.string().required(),
+        S3_SECRET: Joi.string().required(),
+        S3_HOST: Joi.string().required(),
+        S3_IMAGES_BUCKET: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRoot({
@@ -29,6 +34,7 @@ import * as Joi from '@hapi/joi';
       autoLoadEntities: true,
     }),
     PostModule,
+    AssetsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
