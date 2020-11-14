@@ -4,14 +4,14 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { AssetsService } from './assets.service';
+import { AssetService } from './asset.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 
 @Controller('/api/assets')
-export class AssetsController {
+export class AssetController {
   constructor(
-    private assetsService: AssetsService,
+    private assetsService: AssetService,
     private configService: ConfigService,
   ) {}
 

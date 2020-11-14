@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostModule } from './post/post.module';
-import { AssetsModule } from './assets/assets.module';
+import { AssetModule } from './asset/asset.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -34,7 +34,7 @@ import * as Joi from '@hapi/joi';
       autoLoadEntities: true,
     }),
     PostModule,
-    AssetsModule,
+    AssetModule,
   ],
   controllers: [AppController],
   providers: [AppService],

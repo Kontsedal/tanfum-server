@@ -6,7 +6,7 @@ import * as path from 'path';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AssetsService {
+export class AssetService {
   private s3: S3;
 
   constructor(private configService: ConfigService) {
