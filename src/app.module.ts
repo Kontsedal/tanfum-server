@@ -10,7 +10,7 @@ import * as Joi from '@hapi/joi';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `${process.env.STAGE}.env`,
+      envFilePath: `config/${process.env.STAGE}.env`,
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
         POSTGRES_PORT: Joi.string().required(),
