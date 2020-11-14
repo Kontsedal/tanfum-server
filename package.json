@@ -18,7 +18,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "pretest:e2e": "docker-compose up -d postgres-test",
+    "pretest:e2e": "docker-compose up -d",
     "test:e2e": "cross-env STAGE=test jest --config ./test/jest-e2e.json",
     "posttest:e2e": "docker-compose stop postgres-test && docker-compose rm -f postgres-test"
   },
