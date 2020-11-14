@@ -39,6 +39,8 @@ services:
       - v1:/export
     expose:
       - "9000"
+    ports:
+      - "9000:9000"
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
