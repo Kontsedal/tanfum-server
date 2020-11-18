@@ -1,11 +1,29 @@
-version: "3.4"
+version: '3.4'
 
 services:
+  fake-smtp:
+    image: munkyboy/fakesmtp
+    container_name: fake-smtp
+    ports:
+      - '25:25'
+    volumes:
+      - ~/fake-smtp-emails:/var/mail
+  fake-smtp-web:
+    image: mjstewart/fakesmtp-web:1.2
+    container_name: fake-smtp-web
+    ports:
+      - '60500:8080'
+    volumes:
+      - ~/fake-smtp-emails:/var/mail
+    environment:
+      - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
+    depends_on:
+      - fake-smtp
   pgAdmin:
     restart: always
     image: dpage/pgadmin4
     ports:
-      - "8000:80"
+      - '8000:80'
     environment:
       PGADMIN_DEFAULT_EMAIL: 1234@admin.com
       PGADMIN_DEFAULT_PASSWORD: 1234
@@ -14,9 +32,9 @@ services:
   postgres:
     restart: always
     image: postgres
-    container_name: "postgres_tanfum"
+    container_name: 'postgres_tanfum'
     ports:
-      - "5432:5432"
+      - '5431:5432'
     environment:
       POSTGRES_USER: me
       POSTGRES_PASSWORD: 1234
