@@ -6,10 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostModule } from './post/post.module';
 import { AssetModule } from './asset/asset.module';
 import * as Joi from '@hapi/joi';
-import { User } from './repository/user.entity';
 import { AuthModule } from './auth/auth.module';
-import { MailerModule } from '@nestjs-modules/mailer/dist/mailer.module';
-import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+
 
 @Module({
   imports: [

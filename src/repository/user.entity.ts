@@ -29,6 +29,6 @@ export class User {
   })
   role: UserRole;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   avatar: string;
 }
